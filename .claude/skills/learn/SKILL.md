@@ -60,7 +60,17 @@ step.
 - **No hints ANYWHERE** — not in tasks, strand items, the artifact or the review (no "look there",
   no nudges toward the answer). Instead of hints — **good material** to lean on.
 - **Tasks test ONLY what is in the artifact's §2.** Never put an item into a pack that the current
-  subtopic's theory has not covered. Before handing out a pack, check every task against §2.
+  subtopic's theory has not covered. Before handing out a pack, write down for yourself which §2
+  items each task needs — every part of the task, including the last step; a task that needs
+  anything else is changed or dropped. Where the task can be run (code), run your own solution
+  first if you can.
+- **Task wording states the goal and the constraints, never the technique.** No phrases that
+  point to the way to solve it ("so that a typo becomes an error", "without nesting it in an
+  `if`", "if you can't, explain why", a list of the exact bugs to fix).
+- **Reviews never give the answer.** For every problem: the task number and the theory item
+  (§2.N) — nothing else: not the right answer, not why, not which direction to look. Allowed
+  observations are only facts the learner can verify themselves: "the build fails", "test X
+  fails", "acceptance criterion 2 is not met". This holds for `check`, practice and tickets.
 - **Don't explain an untaught concept inline.** If a concept outside the artifact surfaces in an
   answer or mistake, do not explain it in chat. Move it to a future or separate subtopic (Backlog /
   `add-topic`), using the mistake as an illustrative example when that topic starts.
@@ -96,7 +106,9 @@ step.
 ## State (all in this repo, so it works on any device)
 
 Before any step: the repo may be ahead on another device — pull first; then reread the plan and
-the status.
+the status. **The hub is the source of truth for progress.** If the plan's status table disagrees
+with the hub, say so in one line and fix the plan. Dates: check the weekday with a tool before
+writing "Thursday 09.10" — never guess it.
 
 - **Plan** → `<slug>-plan.md`. The map (Topics M → Subtopics M.K, numbered within the subject),
   prerequisites, **applicable and target task types** per subtopic, the **status table** (stage +
@@ -155,12 +167,15 @@ What is learned **across all topics** and woven into tasks from time to time. Wh
 **how many per session**, **in what order** and **how the learner repeats them** (e.g. flashcards
 in an app) — all set in `plan` and kept in the subject config.
 
+- A "session" for the strand is a **study day**: one portion per day, however many conversations
+  that day has.
 - **Every session, give the next portion of items in chat** (count from the config); the learner
   copies them. **Format:** each item as **Front** and **Back** on separate lines, ready to paste.
 - Language strands: **Front — an example sentence with `______` in place of the target word**,
   **Back — the word, part of speech, meaning**. Never a bare "word — translation". Technical
   strands: Front — the term, Back — an English definition.
 - Keep the strand file: every item in order of issue + when last woven in (rotation, nothing lost).
+- Items stay close to what is being studied: no items from topics far ahead of the current one.
 - Order of introduction — by the config's criterion (usually needed/frequent first, hard-but-needed
   not at the very start).
 - **Weave items already given into practice and later topics — silently, without emphasis.**
@@ -193,7 +208,9 @@ task takes in life, at work or in the exam.
   them out (reading primary sources themselves).
 - **Only the studied part is assessed.** Counters move only on applications of **§2 items of the
   current subtopic**; the rest of the ticket is just real work — not tested, not penalized.
-- Review a ticket like a code review: build, tests, remarks. Check that the ticket really exercises
+- Review a ticket like a code review limited to verifiable facts: does it build, do the tests pass,
+  which acceptance criteria are not met (by number). No hints on how to fix, no design advice
+  toward untaught topics. Check that the ticket really exercises
   the current subtopic's items.
 
 Training levels stay narrow exercises within the artifact — the contrast is intended.
@@ -216,9 +233,10 @@ only at Stage 2.
 ### Stage 2 — Theory check (transition point, `check`)
 
 A separate check by the assistant (not reading the notes): questions and problems on the material.
-Review the answers. If it doesn't pass — **a different approach**, not the same questions:
-re-explain to the gap, tasks that analyse exactly the weak spot. Repeat until it passes. Only then
-practice.
+Review the answers as in every review: question number + §2.N, no answers, no explanations. If it
+doesn't pass — **a different approach**, not the same questions: send the learner back to those
+§2 items (rereading is theirs), then give new questions that analyse exactly the weak spot from
+another angle. Repeat until it passes. Only then practice.
 
 ### Stage 3 — Practice without a timer, by difficulty level
 
@@ -263,6 +281,9 @@ practice.
   each column.
 - **Start:** score **5**, status **open**.
 - **Mistake** → **+1**; **correct** → **−1**.
+- **At most −1 per item per pack**, however many tasks of the pack touched it (a mistake still
+  counts +1 each time). An item cannot close on the day it was opened or failed: closing needs
+  correct answers on **at least two different days**.
 - **Score ≤0 → closed:** no more tasks on that item in that column.
 - **Score ≥10 → critical:** (1) reread theory §2.N + **2–3 check questions**; (2) **extra pack on
   that item only** until the score is **<10**.
@@ -282,6 +303,13 @@ down gradually to the target. **Each timer step is its own counter column** (sam
 
 Project tasks come **after the last difficulty level** of a subtopic (one version), connecting it to
 neighbouring subtopics and topics.
+
+### Moving on with items still open
+
+If the learner starts the next subtopic while some items of the previous one are still open
+(e.g. its target level is left for real tickets), record that decision in the plan, keep those
+items' rows in the previous hub, and keep counting them when a later task really exercises them.
+The previous subtopic is closed only when its last column is closed.
 
 ### Stage 5 — End of the cycle
 
