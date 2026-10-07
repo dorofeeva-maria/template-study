@@ -24,7 +24,8 @@ One subject, studied with the `learn` framework until each subtopic is automatic
   never leave the repo.
 - **`index.md`** is generated: `python tools/notes.py index` after adding or renaming notes.
 - **`log.md`**: one line per meaningful session, newest at the bottom.
-- **Commit** after each session with a message saying what moved.
+- **Commit** after each session with a message saying what moved, in this repo's language. If
+  you study on more than one device, pull before you start and push when done.
 
 ## Subject rules
 

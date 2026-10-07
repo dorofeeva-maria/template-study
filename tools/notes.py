@@ -9,6 +9,7 @@ link [text](path) points to a file in this repo, index.md matches the notes.
 """
 import datetime
 import re
+from urllib.parse import unquote
 import sys
 from collections import defaultdict
 from pathlib import Path, PurePosixPath
@@ -29,7 +30,7 @@ def _skipped(parts, skip):
 
 def notes(root=ROOT):
     out = []
-    for p in sorted(root.rglob("*.md")):
+    for p in sorted(root.rglob("*.md"), key=lambda p: p.relative_to(root).as_posix()):   # same order on every OS
         rel = p.relative_to(root)
         if _skipped(rel.parts[:-1], SKIP_DIRS) or p.name in NOT_NOTES:
             continue
@@ -128,13 +129,15 @@ def cmd_check(root=ROOT, verbose=False):
                 items = [x.strip().strip("\"'") for x in tags.strip("[]").split(",") if x.strip()]
                 if not tags.startswith("[") or any(not TAG.match(x) for x in items):
                     problems.append((r, f"frontmatter: tags must be a [kebab-case, list], got {tags!r}"))
-        body = re.sub(r"```.*?```", "", text, flags=re.S)
+        body = re.sub(r"^(```|~~~).*?^\1[^\n]*$", "", text, flags=re.S | re.M)   # fenced code
+        body = re.sub(r"(?m)^(?: {4}|\t).*$", "", body)                         # indented code
+        body = re.sub(r"`[^`\n]*`", "", body)                                   # inline code
         d = str(PurePosixPath(r).parent)
         for m in LINK.finditer(body):
             tg = m.group(1).split("#", 1)[0]
-            if not tg or re.match(r"^[a-z][a-z0-9+.-]*:", tg, re.I):   # anchor, http:, mailto:
-                continue
-            tg = re.sub(r"%20", " ", tg)
+            if not tg or (re.match(r"^[a-z][a-z0-9+.-]*:", tg, re.I) and not re.match(r"^[a-z]:[\\/]", tg, re.I)):
+                continue                                      # anchor, http:, mailto:
+            tg = unquote(tg)
             target = _norm(tg[1:]) if tg.startswith("/") else _norm(d + "/" + tg)
             if not target or (target not in all_files and not (root / target).is_dir()):
                 problems.append((r, f"broken link ({m.group(1)})"))
