@@ -1,0 +1,5 @@
+.DS_Store
+*.swp
+__pycache__/
+
+# Files that stay on this device only (large media, recordings): list them here.
