@@ -1,8 +1,10 @@
 /* Shared stylesheet for theory artifacts and reference sheets. Link it, don't copy it:
    <link rel="stylesheet" href="assets/learn.css">  (from reference/: ../artifacts/assets/learn.css)
    Components: .kicker .sub .lead · .card.point + .num · .key · .warn · .assoc · .primary
+ (<div class="primary"><span class="label">…in the page's language…</span>…</div>)
    · figure/figcaption · .tag · .eq/.frac · ol.q · .ext · sup.cite · .src · .quiz (quiz.js) */
 :root{
+  color-scheme: light dark;
   --bg:#f7f6f2; --ink:#1c1c1e; --muted:#5c5c66; --line:#d9d6cc; --card:#ffffff;
   --accent:#2b5fb3; --accent2:#b3402b; --accent3:#1f7a4d; --warn:#8a6d00;
   --soft:#eef3fb; --soft-line:#cdd9ef; --code:#eceae3;
@@ -29,6 +31,7 @@ h3{font-size:18px;margin:1.6em 0 .3em;color:var(--accent)}
 p{margin:.6em 0}
 .lead{font-size:18px}
 a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 code,.mono{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.92em;background:var(--code);padding:.05em .35em;border-radius:4px}
 pre{background:var(--code);padding:12px 14px;border-radius:8px;overflow-x:auto}
 pre code{background:none;padding:0}
@@ -49,7 +52,7 @@ th{background:var(--soft)}
 .assoc{background:var(--ok-bg);border:1px solid var(--ok-line);border-radius:10px;padding:12px 16px;margin:14px 0}
 .assoc b{color:var(--accent3)}
 .primary{border:2px solid var(--accent);border-radius:12px;padding:12px 16px;margin:16px 0}
-.primary::before{content:"Primary source";display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.primary .label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
 figure{margin:18px 0;text-align:center}
 figure img,figure svg,video{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
 figcaption{font-size:13px;color:var(--muted);margin-top:6px}
@@ -73,8 +76,16 @@ sup.cite a{text-decoration:none;padding:0 1px}
 .quiz .bar{display:flex;gap:12px;align-items:center;font-size:14px;color:var(--muted)}
 .quiz .bar button{font:inherit;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:6px;padding:3px 10px;cursor:pointer}
 @media print{
-  body{background:#fff;color:#000;font-size:12pt}
+  :root{
+    color-scheme: light;
+    --bg:#fff; --ink:#000; --muted:#444; --line:#bbb; --card:#fff;
+    --accent:#1d4a91; --accent2:#9a2f1c; --accent3:#16603b; --warn:#6b5400;
+    --soft:#eef3fb; --soft-line:#cdd9ef; --code:#eee;
+    --warn-bg:#fff8e1; --warn-line:#e9d48a; --ok-bg:#f0f8f2; --ok-line:#bfe0cc; --bad-bg:#fbefed; --bad-line:#e6bdb5;
+  }
+  body{font-size:11pt}
   .wrap{max-width:none;padding:0}
   .quiz .bar{display:none}
-  a{color:#000}
+  .card,figure,table,pre,.key,.warn,.assoc,.primary{break-inside:avoid}
+  .src a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;word-break:break-all}
 }

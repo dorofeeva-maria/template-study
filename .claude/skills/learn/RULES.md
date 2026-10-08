@@ -1,7 +1,8 @@
 # learn — terms and iron rules
 
 Shared by every `learn-*` skill. Each rule lives here once; the skills point to it. Read this file
-before any study step.
+before any study step. Where the plan's Config sets something, the plan overrides the defaults in
+the skills and formats.
 
 ## Terms
 
@@ -34,6 +35,24 @@ before any study step.
   that are due in `review-queue.md`.
 - **Study day** — one calendar day of study, however many conversations it has.
 
+## Stages of a subtopic
+
+One list, used by the plan's status table and the hubs (a repo may write them in its own
+language; the meaning is this list):
+
+| Stage | Means | Set by |
+|---|---|---|
+| `not started` | no artifact issued yet (it may be prepared) | setup |
+| `theory` | artifact issued; the learner self-studies | learn-artifact issue |
+| `check` | the theory check is running (may span sessions) | learn-practice |
+| `practice` / `timed` / `project` | counter columns in progress | learn-practice |
+| `moved on (open: §2.x…)` | the learner went on with items still open | learn-practice |
+| `paused` | started, deliberately set aside; the plan says why | the learner |
+| `done` | every item closed in the last column | learn-close |
+| `before entry` | before the entry point set by the setup diagnostic | setup |
+
+Exactly one subtopic is **current** (the plan marks it); `moved on` and `paused` ones are not.
+
 ## Iron rules
 
 - **Maximum independence.** The assistant gives material, tasks and structure. The learner reads,
@@ -47,20 +66,25 @@ before any study step.
 - **Tasks test only what is in the current artifact's §2.** Before handing out any task, write
   down for yourself which §2 items each task needs — every part, including the last step; a task
   that needs anything else is changed or dropped. Where the task can be run (code), run your own
-  solution first if you can.
+  solution first if you can. Exceptions, and only these: the setup **diagnostic** (no artifact
+  exists yet); **warm-ups** (items of closed subtopics); open items of **`moved on`** subtopics,
+  which a later task may target and count; tickets, whose untaught context is real work, not
+  assessed.
 - **Task wording states the goal and the constraints, never the technique.** No phrases pointing
-  to the way to solve it ("so that a typo becomes an error", "without nesting it in an `if`", a
-  list of the exact bugs to fix).
-- **Reviews never give the answer.** For every problem: the task number and the item (§2.N) —
-  nothing else: not the right answer, not why, not which direction to look. Allowed observations
-  are only facts the learner can verify: "the build fails", "test X fails", "acceptance criterion
-  2 is not met". Holds for setup diagnostics, warm-ups, `check`, practice and tickets.
+  to the way to solve it ("so that a typo becomes an error", "without nesting it in an `if`", "if
+  you can't, explain why", a list of the exact bugs to fix).
+- **Reviews never give the answer.** Allowed per task, and nothing else: `N ✓`; `N — §2.K` (a
+  problem on that item); `N — not scored` (the answer leaned on something outside the current
+  §2; no further words); in the diagnostic, which has no §2, just `N ✗`. Facts the learner can
+  verify may be added: "the build fails", "test X fails", "acceptance criterion 2 is not met". Not
+  the right answer, not why, not which direction to look. Holds for diagnostics, warm-ups,
+  `check`, practice and tickets.
 - **Don't explain an untaught concept inline.** If a concept outside the artifact surfaces, move it
   to a future or new subtopic (note in that hub, or `add-topic`); don't explain it in chat.
 - **The counter never penalizes what was not taught.** A "mistake" on untaught material is
-  cancelled, not counted.
-- **Associations and notes are the learner's.** Never say what to put in notes or what to
-  associate with. At most 1–2 subtle questions at the end of the artifact.
+  cancelled (`not scored`), not counted.
+- **Associations and notes are the learner's.** Never say what to put in notes, which connections
+  to build or what to associate with. At most 1–2 subtle questions at the end of the artifact.
 - **Minimum text, maximum practice.** Long text only in the artifact. Chat = tasks, short
   instructions, short reviews. No lectures, no repeating the topic, no thinking aloud.
 - **Theory is self-study.** The assistant does not check notes; understanding is checked only at
@@ -68,13 +92,15 @@ before any study step.
 - **The learner sets the pace.** A stage takes as many sessions as it takes.
 - **The measure is retention and automaticity**, not smoothness in the session. Fluency in the
   moment is not learning; storage over days is.
-- **Don't inflate mastery.** Done with an example in front of you is familiarity. Automaticity =
-  reproducing it cold. Counters move only by that criterion.
+- **Don't inflate mastery.** "Done with an example in front of me" is familiarity, not
+  automaticity. Automaticity = reproducing it cold, without hints or example. Counters move only
+  by that criterion; one good attempt with an example never closes an item.
 - **Explicit cycle, planned up front.** No tasks outside the plan — put them into the plan first.
   The order of subtopics is fixed in the plan; deviations are marked there.
 - **A weak foundation is not a gate.** Hands-on work and foundations go in parallel; an unknown
   term stays a "black box" (one line in the hub's log), studied later as a topic.
-- **Every pack is full session volume**, even when one or two items remain.
+- **Every pack is full session volume**, even a "finishing" pack for one or two remaining items:
+  more tasks on the same items, variations, interleaving with closed items.
 - **The learner reads what builds understanding** (papers, textbooks) themselves; technical
   instructions (README, setup) the assistant may digest for them.
 - **The mission steers.** When choosing what to add, drop or deepen, trace it to the mission.
@@ -88,11 +114,23 @@ before any study step.
   one line and fix the plan.
 - **Write as you go**: results, counters, decisions go into the files in the same turn.
 - Dates: check the weekday with a tool before writing one; never guess it.
-- New pages have frontmatter `title`, `type`, `updated`, `tags`. After adding pages run
-  `python tools/notes.py index`; before committing `python tools/notes.py check`.
+- New pages have frontmatter `title`, `type`, `updated` (optional `tags`) and a one-line TL;DR. At the end
+  of every session: log line, `python tools/notes.py index`, `python tools/notes.py check`, commit
+  with a message saying what moved.
 - `log.md`: one line per meaningful session —
   `YYYY-MM-DD · <M.K> <stage> · what was done/decided · pages`.
-- **Background agents** (where the assistant can launch subagents): they read the skill named in
-  their prompt and these rules, write only the files their task names, never talk to the learner
-  and never commit. The main session reviews what they wrote, then commits. Without subagents, do
-  the same work inline.
+
+## Background agents
+
+Where the assistant can launch subagents, some work runs in the background. Subagents cannot
+launch other subagents, cannot ask the learner, and may be refused tools that need approval (a new
+web domain, a download) — then they report what they could not do.
+- A background agent writes **only its own new files**: a draft artifact
+  `artifacts/<name>.draft.html` and its images in `artifacts/media/`, or `resources.draft.md`.
+  It never edits hubs, the plan, `resources.md`, `artifacts/assets/` or anything the main session
+  may be editing. Everything else (new sources, hub items, status lines) goes into its **report**,
+  and the main session applies it.
+- The **main session** launches every agent (including the fact-checker after a build returns),
+  reviews the result, renames a draft to its final name only after the fact-check, and commits.
+  An unreviewed `.draft.*` file is never issued.
+- Without subagents, do the same work inline, in the same order.

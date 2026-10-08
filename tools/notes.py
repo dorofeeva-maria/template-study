@@ -5,7 +5,9 @@
   python tools/notes.py compact-log [--keep N]   move all but the last N log entries to log.archive.md
 
 check: every note has frontmatter (title, type, updated as YYYY-MM-DD), every relative markdown
-link [text](path) points to a file in this repo, index.md matches the notes.
+link [text](path) points to a file in this repo, index.md matches the notes; every relative
+href/src in the HTML pages points to a file in this repo; no [[wikilinks]] and no stray tool tags
+(</invoke>, </content>, <parameter …>) left in notes or pages.
 """
 import datetime
 import re
@@ -22,6 +24,9 @@ NOT_NOTES = {"index.md", "log.md", "log.archive.md", "README.md", "AGENTS.md", "
 INDEX_HEADER = "<!-- auto-generated index — regenerate after adding/removing notes; do not edit by hand -->"
 TAG = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 ENTRY = re.compile(r"^\d{4}-\d{2}-\d{2}\b")
+HTML_REF = re.compile(r"""(?:href|src)\s*=\s*["']([^"']+)["']""", re.I)
+WIKILINK = re.compile(r"\[\[[^\]\n]+\]\]")
+STRAY = re.compile(r"</invoke>|</content>|<parameter\s+name=|</parameter>")
 
 
 def _skipped(parts, skip):
@@ -133,6 +138,10 @@ def cmd_check(root=ROOT, verbose=False):
         body = re.sub(r"(?m)^(?: {4}|\t).*$", "", body)                         # indented code
         body = re.sub(r"`[^`\n]*`", "", body)                                   # inline code
         d = str(PurePosixPath(r).parent)
+        if WIKILINK.search(body):
+            problems.append((r, f"wikilink {WIKILINK.search(body).group(0)} — use a markdown link"))
+        if STRAY.search(text):
+            problems.append((r, f"stray tool tag {STRAY.search(text).group(0)!r}"))
         for m in LINK.finditer(body):
             tg = m.group(1).split("#", 1)[0]
             if not tg or (re.match(r"^[a-z][a-z0-9+.-]*:", tg, re.I) and not re.match(r"^[a-z]:[\\/]", tg, re.I)):
@@ -141,6 +150,26 @@ def cmd_check(root=ROOT, verbose=False):
             target = _norm(tg[1:]) if tg.startswith("/") else _norm(d + "/" + tg)
             if not target or (target not in all_files and not (root / target).is_dir()):
                 problems.append((r, f"broken link ({m.group(1)})"))
+    for p in sorted(root.rglob("*.html"), key=lambda p: p.relative_to(root).as_posix()):
+        rel = p.relative_to(root)
+        if _skipped(rel.parts[:-1], SKIP_DIRS - {"media"}):
+            continue
+        r = rel.as_posix()
+        text = p.read_text(encoding="utf-8", errors="replace")
+        text = re.sub(r"(?is)<(script|style)\b[^>]*>.*?</\1>", lambda m: m.group(0) if "src=" in m.group(0)[:200] else "", text)
+        d = str(PurePosixPath(r).parent)
+        if WIKILINK.search(text):
+            problems.append((r, f"wikilink {WIKILINK.search(text).group(0)}"))
+        if STRAY.search(text):
+            problems.append((r, f"stray tool tag {STRAY.search(text).group(0)!r}"))
+        for m in HTML_REF.finditer(text):
+            tg = m.group(1).split("#", 1)[0].split("?", 1)[0]
+            if not tg or re.match(r"^[a-z][a-z0-9+.-]*:", tg, re.I) or tg.startswith("//"):
+                continue                                      # anchor, http:, data:, mailto:, file:
+            tg = unquote(tg)
+            target = _norm(tg[1:]) if tg.startswith("/") else _norm(d + "/" + tg)
+            if not target or (target not in all_files and not (root / target).is_dir()):
+                problems.append((r, f"broken href/src ({m.group(1)})"))
     idx = root / "index.md"
     if not idx.exists():
         problems.append(("index.md", "missing — run: python tools/notes.py index"))

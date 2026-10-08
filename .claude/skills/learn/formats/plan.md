@@ -1,4 +1,4 @@
-# Plan format — `<slug>-plan.md`
+# Plan format — `<subject-slug>-plan.md`
 
 The map and the configuration of the subject. Written by `learn-setup`; the status table is kept
 current by every skill. Frontmatter `type: plan`.
@@ -26,7 +26,7 @@ Numbered list of the parts in learning order + **we are here**.
 
 ## Starting point
 Result of the setup diagnostic: what the learner already does cold (with evidence), what they
-claimed to know (and how deep), misconceptions seen. Subtopics skipped by diagnostic are named.
+claimed to know (and how deep), misconceptions seen. The entry point and why.
 
 ## Map
 Topics M → subtopics M.K. Per subtopic: name, prerequisites, applicable and target task types,
@@ -34,12 +34,12 @@ which part of which resource it rests on (or "no source — gap"), link to its h
 
 ## Status
 | M.K | Stage | Level | Notes |
-Stage: `not started` · `theory` · `check` · `practice` · `timed` · `project` · `done` ·
-`skipped (diagnostic)`. Level = current counter column. Notes: artifact prepared/issued, decisions.
+Stage: the list in RULES.md › Stages (may be written in the repo's language). One row is marked
+**current**. Level = current counter column. Notes: artifact prepared/issued, decisions.
 
 ## Config
-- **Difficulty ladder:** L1…Ln with the criteria of each (axes: items in play, nesting, cognitive
-  level, novelty, framing). Which task types belong to which level.
+- **Difficulty ladder:** L1…Ln with the criteria of each (axes in `learn-setup` › Parameters).
+  Which task types belong to which level.
 - **Strand:** yes/no; what the items are; how many per study day; order of introduction; how the
   learner repeats them.
 - **Project:** yes/no; what it is.
@@ -47,6 +47,7 @@ Stage: `not started` · `theory` · `check` · `practice` · `timed` · `project
 - **Artifact palette:** channels that fit the subject (prose · tables · diagrams/timelines ·
   images · embedded audio · embedded video · interactive/code · quizzes).
 - **Warm-up:** questions per study day (default 3–5); intervals (default 1-3-7-14-30-60 days).
+  The only place the intervals are set.
 
 ## Backlog
 Topics to add later: mistakes outside the plan, "for later". Each with where it came from.

@@ -12,68 +12,86 @@ automatic. This skill runs the **session**; the work of each stage lives in its 
 |---|---|---|
 | `learn` (this) | every session | warm-up, strand portion, routing, background jobs |
 | `learn-setup` | once per subject (+ `add-topic`) | mission, sources kick-off, diagnostic, plan |
-| `learn-sources` | setup, gaps, monthly audit — **background** | vetted `resources.md` |
+| `learn-sources` | setup, gaps, on request — **background** | vetted `resources.md` |
 | `learn-artifact` | once per subtopic — **background build + independent fact-check** | theory artifact |
 | `learn-practice` | every session | `check` · `practice` · `timed` · `ticket`, counter |
 | `learn-close` | once per subtopic | reference sheet, review queue, move on |
 
-Shared files: [RULES.md](RULES.md) (terms and iron rules — read first), `formats/` (plan, hub,
-resources, review queue, strand). Skill paths below are relative to `.claude/skills/`.
+The stage skills are internal: always start here, then read the stage skill's `SKILL.md` and
+follow it. Shared files: [RULES.md](RULES.md) (terms, stages, iron rules, background agents —
+read first) and `formats/` (plan, hub, resources, review queue, strand). Skill paths below are
+relative to `.claude/skills/`.
 
 ## Usage
 
 ```
-learn                     continue: warm-up → strand → the next step of the current subtopic
+learn                     continue: warm-up → the next step of the current subtopic → strand
 learn plan                → learn-setup (new subject or rebuild the plan)
 learn add-topic <topic>   → learn-setup add-topic
 learn theory              → learn-artifact: issue (or prepare) the current subtopic's artifact
 learn check | practice | timed | ticket   → learn-practice in that mode
 learn close               → learn-close for the current subtopic
-learn sources             → learn-sources (background): fill gaps / audit
+learn sources [gap|audit] → learn-sources (background)
 learn status              one screen: current subtopic, stage, counters, due warm-ups, jobs
 ```
 
 ## Every session
 
-1. **Sync and read.** Pull. Read [RULES.md](RULES.md), the plan, the current hub,
-   `review-queue.md`, the tail of `log.md`.
-2. **No plan yet** → hand over to `learn-setup` and stop here.
-3. **Upgrade an older repo (once).** If the repo predates this version, bring it up before the
-   step, telling the learner in one line:
-   - no `## Mission` in the plan → a short mission interview (questions from `learn-setup` step 2);
-   - no `resources.md` → launch `learn-sources` in the background, seeded with the plan's existing
-     sources; meanwhile continue the session;
-   - no `review-queue.md` → create it (format in `formats/review-queue.md`) with the items of
-     subtopics already `done`;
-   - hubs without `## Misconceptions` / `## Notes for the artifact` → add the empty sections when
-     the hub is next touched.
-4. **Warm-up** (first conversation of a study day, if any row is due). Take the due rows of
-   `review-queue.md` (oldest due first, at most the config's count). One cold question per item,
-   at the level the item was closed at, in a fresh form (not a task from its log). The learner
-   answers in one batch; review per [RULES.md](RULES.md) (number + §2.N only). Update the queue
-   (format file). A mistake → the item's extra pack goes first in today's practice. Skip the
-   warm-up if the learner says they have no time — the rows stay due.
-5. **Strand portion** (first conversation of a study day, if the subject has a strand): the next
-   items per [formats/strand.md](formats/strand.md); update the strand file.
-6. **Route by the current subtopic's stage** (hub first):
-   - `not started` / `theory` → `learn-artifact` (issue the prepared artifact, or build it);
-     during theory sessions just confirm what the learner reports and log it — no checking;
-   - learner says theory is done → `learn-practice check`;
-   - `practice` / `timed` / `project` → `learn-practice` in that mode;
-   - last column closed → `learn-close`.
-   Read that skill's `SKILL.md` and follow it.
-7. **Background jobs** (launch, don't wait — see "Background agents" in RULES.md):
-   - the current subtopic passed `check` and the next subtopic has no artifact → `learn-artifact`
-     **prepare** for the next subtopic;
-   - `resources.md` has a gap touching the current or next subtopic, or was last audited more than
-     30 days ago → `learn-sources`.
-   When a job finishes: look over what it wrote, note it in the hub/plan, commit. Tell the learner
-   in one line only if it changes what they do.
-8. **Close the session.** Log line, plan status in sync with the hub, `notes.py index` + `check`,
-   commit with a message saying what moved.
+1. **Sync and read** (RULES.md › State): the plan, the current hub, `review-queue.md`, the tail of
+   `log.md`. Leftover `*.draft.*` files from an earlier session → finish their review (fact-check
+   if missing) before using them.
+2. **No plan yet** → `learn-setup`; stop here.
+3. **Upgrade an older repo (once).** See "Upgrading an older repo" below.
+4. **Warm-up** — once per study day: offered in each conversation of the day until it is done or
+   the learner declines it for today. Take the due rows of `review-queue.md` (oldest due first, at
+   most the plan's count). One cold question per item, at the level of the hub's last column, in a
+   fresh form (not a task from its log). The learner answers in one batch; review per RULES.md.
+   Update the queue per `formats/review-queue.md`; a mistake starts that item's extra pack (see
+   `learn-practice` › Review, route 2).
+5. **Route by the current subtopic's stage** (hub first; stage list in RULES.md):
+   - `not started` → `learn-artifact issue` (prepared artifact, or build it now);
+   - `theory` → a theory session (`learn-artifact` › theory session); when the learner says theory
+     is done → `learn-practice check`;
+   - `check` / `practice` / `timed` / `project` → `learn-practice` in that mode;
+   - all items closed in the last column → `learn-close`;
+   - no current subtopic (all `done`/`before entry`, or only `paused`/`moved on` left) → ask the
+     learner which to take up, or propose `learn-close` › end of the subject.
+   An extra pack in progress (any subtopic) takes the first part of the session; the rest goes to
+   the route above.
+6. **Strand portion** — once per study day, if the subject has a strand: after the session's pack
+   (never before a pack on the subtopic its items come from), per `formats/strand.md`.
+7. **Background jobs** (RULES.md › Background agents; launch, don't wait):
+   - the current subtopic passed `check` and the next subtopic has no artifact → `learn-artifact
+     prepare` for it;
+   - a gap in `resources.md` touches the current or next subtopic → `learn-sources gap`.
+   When a job's report arrives: apply what it proposes (hub, plan, `resources.md`), launch the
+   fact-check for a built draft, commit. Tell the learner in one line only if it changes what they
+   do.
+8. **End** (RULES.md › State): log line, plan status in sync with the hub, index, check, commit.
+
+## Upgrading an older repo
+
+Done once, when the repo predates this version; tell the learner in one line and keep it short.
+1. **Mission** — draft it from what the plan already says (goal, north star, notes), then confirm
+   it part by part with the learner. Prior knowledge goes into a `## Starting point` section (no
+   diagnostic for a repo already under way).
+2. **Config** — add the missing lines with defaults and say so: Warm-up (count, intervals).
+3. **Sources** — no `resources.md` → `learn-sources build` in the background, seeded with the
+   plan's sources and the §4 lists of existing artifacts. Until it returns, nothing in step 7
+   depends on it.
+4. **Old artifacts** — an issued artifact without inline citations or a `fact-checked` date →
+   run the `learn-artifact` › Fact-check on it in the background; fix what it finds before the
+   next pack on that subtopic. Old artifacts keep their inline styles; new ones link
+   `artifacts/assets/`.
+5. **Queue** — no `review-queue.md` → create it with the items of `done` subtopics.
+6. **Hubs** — when a hub is next touched: add `## Notes for the artifact` and `## Misconceptions`
+   (headings may be in the repo's language), and rewrite its counter header to the current rule
+   (`learn-practice` › The counter).
+7. **Leftovers** — run `python tools/notes.py check -v` and fix what it finds (stray tool tags,
+   `[[wikilinks]]`, paths from an older layout, broken tables).
 
 ## `learn status`
 
-Current subtopic and stage; its counter column (open items with scores); warm-up rows due today
-and this week; background jobs running or finished since last time; open gaps in `resources.md`.
-No advice — facts only.
+Current subtopic and stage; its counter column (open items with scores); extra packs in progress;
+warm-up rows due today and this week; background jobs running or reported; open gaps in
+`resources.md`. Facts only.
