@@ -16,9 +16,20 @@
        </div>
      </div>
    Only .qq blocks inside .quiz are used; anything else there is kept above the questions.
+   Labels follow the page's language (<html lang="…">): en and ru built in, English otherwise.
 */
 (function () {
   var counter = 0;
+  var STRINGS = {
+    en: { again: "↻ again", againLabel: "Start the quiz over (options reshuffled)",
+          score: function (a, t, r) { return a + " / " + t + " answered · " + r + " right"; },
+          right: "✓ right", wrong: "✗ wrong" },
+    ru: { again: "↻ заново", againLabel: "Пройти квиз заново (варианты перемешаются)",
+          score: function (a, t, r) { return "отвечено " + a + " из " + t + " · верно " + r; },
+          right: "✓ верно", wrong: "✗ неверно" }
+  };
+  var lang = (document.documentElement.lang || "en").toLowerCase().split("-")[0];
+  var L = STRINGS[lang] || STRINGS.en;
 
   function shuffle(a) {
     for (var i = a.length - 1; i > 0; i--) {
@@ -49,12 +60,12 @@
     score.setAttribute("aria-live", "polite");
     var again = document.createElement("button");
     again.type = "button";
-    again.textContent = "↻ again";
-    again.setAttribute("aria-label", "Start the quiz over (options reshuffled)");
+    again.textContent = L.again;
+    again.setAttribute("aria-label", L.againLabel);
     again.onclick = function () { build(quiz); };
     bar.appendChild(score); bar.appendChild(again);
 
-    function update() { score.textContent = answered + " / " + total + " answered · " + right + " right"; }
+    function update() { score.textContent = L.score(answered, total, right); }
 
     originals.forEach(function (orig) {
       var q = orig.cloneNode(true);
@@ -83,7 +94,7 @@
           buttons.forEach(function (x) { x.disabled = true; });
           b.classList.add(correct ? "right" : "wrong");
           b.setAttribute("aria-pressed", "true");
-          verdict.textContent = correct ? "✓ right" : "✗ wrong";
+          verdict.textContent = correct ? L.right : L.wrong;
           answered++; if (correct) { right++; }
           update();
           verdict.focus();

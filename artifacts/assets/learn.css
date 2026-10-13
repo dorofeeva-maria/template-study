@@ -2,7 +2,8 @@
    <link rel="stylesheet" href="assets/learn.css">  (from reference/: ../artifacts/assets/learn.css)
    Components: .kicker .sub .lead · .card.point + .num · .key · .warn · .assoc · .primary
  (<div class="primary"><span class="label">…in the page's language…</span>…</div>)
-   · figure/figcaption · .tag · .eq/.frac · ol.q · .ext · sup.cite · .src · .quiz (quiz.js) */
+   · figure/figcaption · .tag · .eq/.frac · ol.q · .ext · sup.cite · .src · .quiz (quiz.js)
+   · inline SVG diagrams (below) · td.ctr */
 :root{
   color-scheme: light dark;
   --bg:#f7f6f2; --ink:#1c1c1e; --muted:#5c5c66; --line:#d9d6cc; --card:#ffffff;
@@ -62,6 +63,26 @@ ol.q{padding-left:22px} ol.q li{margin:.5em 0}
 sup.cite{font-size:.7em;line-height:0}
 sup.cite a{text-decoration:none;padding:0 1px}
 .src{font-size:15px} .src li{margin:.5em 0}
+td.ctr,th.ctr{text-align:center}
+/* Inline SVG diagrams: colours come from the variables, so they follow the dark theme.
+   Lines: .ax (axes) .ln (main) .thin .dash · .c1 .c2 .c3 (accent strokes) · points: .dot1 .dot
+   Text: plain · .m (muted) · .a1 .a2 .a3 (accent, bold) · .big */
+svg .ax{stroke:var(--muted);stroke-width:1.2}
+svg .ln{stroke:var(--ink);stroke-width:2;fill:none}
+svg .thin{stroke:var(--ink);stroke-width:1.2;fill:none}
+svg .dash{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 4;fill:none}
+svg .c1{stroke:var(--accent);stroke-width:3;fill:none}
+svg .c2{stroke:var(--accent2);stroke-width:3;fill:none}
+svg .c3{stroke:var(--accent3);stroke-width:2;fill:none}
+svg .dot{fill:var(--accent2)}
+svg .dot1{fill:var(--accent)}
+svg text{fill:var(--ink);font:13px -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+svg text.m{fill:var(--muted)}
+svg text.a1{fill:var(--accent);font-weight:700}
+svg text.a2{fill:var(--accent2);font-weight:700}
+svg text.a3{fill:var(--accent3);font-weight:700}
+svg text.big{font-size:15px}
+figure svg{background:var(--card)}
 /* quiz.js */
 .quiz{margin:18px 0}
 .quiz .qq{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:12px 0}

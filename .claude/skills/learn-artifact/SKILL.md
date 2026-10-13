@@ -81,7 +81,10 @@ Careful typography and a readable grid; **visualise the core of the theory** (di
 timelines where a picture explains better than text); highlight what matters (cards, callouts,
 colour accents — not garish); **one piece of information through different channels** from the
 subject's palette; **formulas in proper textbook form** (MathML or rendered — the no-LaTeX rule is
-for chat only).
+for chat only). Diagrams are inline SVG drawn with the `learn.css` diagram classes (`.ax`, `.ln`,
+`.c1`…, text `.m`, `.a1`…) and never hard-coded colours, so they stay legible in the dark theme.
+Set `<html lang="…">` to the page's language: the quiz labels follow it. A subject-specific
+interactive widget stays inline in its artifact (or in the module's own files), not in `assets/`.
 
 **Accuracy (critical).** The artifact is a textbook page: no invented facts. Every non-trivial
 fact — especially about an interface, a format or the rules of a task — comes from a source in
