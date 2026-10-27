@@ -13,9 +13,13 @@ the source of truth; its layout is in [../learn/formats/hub.md](../learn/formats
 
 ### `check` — the transition from theory to practice
 
-Set stage `check` when the learner says theory is done (it may span sessions). Questions and
-problems on the material, cold (the learner answers without the artifact), covering every §2
-item. It **passes** when every §2 item is answered correctly cold within one batch; `check` does
+Set stage `check` when the learner says theory is done (it may span sessions). Questions on the
+**theory itself**, cold (the learner answers without the artifact), covering every §2 item: state
+a definition or rule in their own words, explain why it holds, name its conditions and limits,
+tell apart what is easily confused, say which rule a given statement rests on. **No exercises** —
+nothing to compute, solve, write or build: applying the theory is practice and starts at L1. An
+example may appear only as the object of a question about the theory ("is this true, and by
+which rule?"), never as something to work out. It **passes** when every §2 item is answered correctly cold within one batch; `check` does
 not touch the counter. Review per RULES.md. If it doesn't pass —
 **a different approach**, not the same questions: the learner rereads those §2 items (rereading
 is theirs), then new questions that analyse exactly the weak spot from another angle. Repeat until
