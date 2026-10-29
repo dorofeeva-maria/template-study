@@ -29,7 +29,7 @@ Things to cover in more depth, collected before the artifact exists or before it
 …
 
 ## Counter
-Rules: `learn-practice` › The counter. Cells: `score · ✓MM-DD · ✗MM-DD` (last right / last wrong).
+Rules: `learn-practice` › The counter. Cells: `score · last-5 · ✓MM-DD · ✗MM-DD` (last 5 results, e.g. `✓✓✗✓✓`; last right / last wrong).
 
 | Item | L1 | L2 | … | T1 | … | Extra |
 |------|----|----|---|----|---|-------|

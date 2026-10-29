@@ -66,7 +66,7 @@ The learner sends answers **as one batch**. Wording per RULES.md (`N ✓`, `N �
 `N — not scored`). Route each problem by where it belongs:
 1. **Current subtopic** → the counter (below).
 2. **A finished subtopic** (in practice or at a warm-up) → an **extra pack on that item only**, in
-   its hub's `Extra` column: score starts at **10** → the learner rereads §2.N + 2–3 check
+   its hub's `Extra` column: score starts at **5** → the learner rereads §2.N + 2–3 check
    questions (not counted) → packs on that item until the score reaches **0**, by the same counter
    rules. While it runs, it takes the first part of each session; the rest goes to current work.
    Its `review-queue.md` row goes back to step 0.
@@ -82,21 +82,28 @@ closes.
 ## The counter
 
 One table in the hub; rows = items (§2.N); columns = L1…Ln, then T1… if timed, plus `Extra` when
-an extra pack runs. Cells: `score · last ✓ date · last ✗ date`.
-- Start **5**, status open.
-- **Change per pack** for an item = **+1 for each wrong task** on it, **−1 if at least one task on
-  it was right** (never more than −1 per pack).
+an extra pack runs. Cells: `score · last-5 · last ✓ date · last ✗ date`, where last-5 is the
+results of the item's last (up to) 5 tasks in that column, oldest first (e.g. `✓✓✗✓✓`).
+- Start **2**, status open.
+- **Change per pack** for an item: after the pack, take the item's **last 5 tasks** in the column —
+  all from this pack if it had 5+ on the item, otherwise reaching back into earlier packs; fewer
+  than 5 so far → all there are. **≥80% right → −1**, **<80% right → +1**. One step per pack,
+  whatever the number of tasks. So a mistake early on counts in full, and a rare mistake after
+  a run of right answers does not hold the item back (it is still written down and goes to warm-ups).
 - **Two different days to close:** on a day the item had a mistake, its score cannot go below 1.
   It reaches ≤0 only on a later day.
 - **≤0 → closed** in that column: no more tasks on it there.
-- **≥10 → critical:** reread §2.N + 2–3 check questions (not counted); extra pack on that item
-  until **<10**.
+- **≥5 → critical:** reread §2.N + 2–3 check questions (not counted); extra pack on that item
+  until **<5**.
 - **Share in a regular pack** = the item's score ÷ the sum of scores of the open items in the
   column (an open item never has a share below one task).
 - **Next column** when all items of the current one are closed.
 - Last column closed → hand over to `learn-close`.
 
 ## Moving on with items still open
+
+**Time limit per subtopic** (optional): if the module's `AGENTS.md` sets one (e.g. ~4 h), the
+subtopic moves on once that time is spent, whatever its level. No limit set → none applies.
 
 If the learner starts the next subtopic while some items are still open (e.g. the target level is
 left for real tickets): stage `moved on (open: §2.x…)` in the hub and the plan, with the reason;
