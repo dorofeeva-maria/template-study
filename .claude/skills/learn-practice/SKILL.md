@@ -90,8 +90,6 @@ results of the item's last (up to) 5 tasks in that column, oldest first (e.g. `�
   than 5 so far → all there are. **≥80% right → −1**, **<80% right → +1**. One step per pack,
   whatever the number of tasks. So a mistake early on counts in full, and a rare mistake after
   a run of right answers does not hold the item back (it is still written down and goes to warm-ups).
-- **Two different days to close:** on a day the item had a mistake, its score cannot go below 1.
-  It reaches ≤0 only on a later day.
 - **≤0 → closed** in that column: no more tasks on it there.
 - **≥5 → critical:** reread §2.N + 2–3 check questions (not counted); extra pack on that item
   until **<5**.
