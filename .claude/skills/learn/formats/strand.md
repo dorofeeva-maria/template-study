@@ -19,7 +19,7 @@ updated: YYYY-MM-DD
 
 Escape `|` inside cells as `\|` (a bare `|v|` breaks the table).
 
-- **One portion per study day** (today's date already in Given → no portion), count from the
+- **One portion per study day** (today's date already in Given → no portion), count from the config (default 5 when it gives none) — taken from the current subtopic's artifact, never held back until the subtopic closes;
   config, given **in chat** after the pack (`learn` step 6); the learner copies the cards. Each item as **Front** and **Back** on separate lines, ready to paste.
 - Language strands: Front — an example sentence with `______` in place of the target word; Back —
   the word, part of speech, meaning. Never a bare "word — translation". Technical strands: Front —

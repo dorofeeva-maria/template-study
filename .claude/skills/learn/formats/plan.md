@@ -40,7 +40,7 @@ Stage: the list in RULES.md › Stages (may be written in the repo's language). 
 ## Config
 - **Difficulty ladder:** L1…Ln with the criteria of each (axes in `learn-setup` › Parameters).
   Which task types belong to which level.
-- **Strand:** yes/no; what the items are; how many per study day; order of introduction; how the
+- **Strand:** yes/no; what the items are; how many per study day (a number, default 5); order of introduction; how the
   learner repeats them.
 - **Project:** yes/no; what it is.
 - **Timer:** yes/no; starting measure and target.

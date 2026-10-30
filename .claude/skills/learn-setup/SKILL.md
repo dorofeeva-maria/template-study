@@ -80,8 +80,11 @@ Starting point decides where the learner enters.
    in a realistic task → the full target type on unfamiliar material; then the same under a timer.
    Early levels may be real-life rather than target-format tasks. Fixed here; it does not change
    during the cycle.
-3. Strand — yes/no, what, how many per study day, order, how repeated (for professional or
-   technical subjects: a vocabulary strand of the field's terms in English is recommended).
+3. Strand — yes/no, what, **how many per study day** (offer 5 as the default; the learner picks
+   the number, and the number is always written into Config — a strand without a count is not
+   set up), order, how repeated (for professional or technical subjects: a vocabulary strand of
+   the field's terms in English is recommended). Items come from the current subtopic's artifact
+   every study day — never saved up until the subtopic closes.
 4. Project — yes/no and what (comes after the last level of each subtopic).
 5. Timer — yes/no, start and target.
 6. Artifact palette — channels that fit the subject.

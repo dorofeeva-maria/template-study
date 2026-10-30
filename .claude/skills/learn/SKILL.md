@@ -75,7 +75,7 @@ Done once, when the repo predates this version; tell the learner in one line and
 1. **Mission** — draft it from what the plan already says (goal, north star, notes), then confirm
    it part by part with the learner. Prior knowledge goes into a `## Starting point` section (no
    diagnostic for a repo already under way).
-2. **Config** — add the missing lines with defaults and say so: Warm-up (count, intervals).
+2. **Config** — add the missing lines with defaults and say so: Warm-up (count, intervals); Strand count per study day (default 5) if the subject has a strand and its Config gives no number.
 3. **Sources** — no `resources.md` → `learn-sources build` in the background, seeded with the
    plan's sources and the §4 lists of existing artifacts. Until it returns, nothing in step 7
    depends on it.
