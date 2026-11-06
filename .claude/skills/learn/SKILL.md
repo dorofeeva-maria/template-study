@@ -16,6 +16,7 @@ automatic. This skill runs the **session**; the work of each stage lives in its 
 | `learn-artifact` | once per subtopic — **background build + independent fact-check** | theory artifact |
 | `learn-practice` | every session | `check` · `practice` · `timed` · `ticket`, counter |
 | `learn-close` | once per subtopic | reference sheet, review queue, move on |
+| `learn-video` | on request (build on macOS) | narrated slide video: lecture or practice pack |
 
 The stage skills are internal: always start here, then read the stage skill's `SKILL.md` and
 follow it. Shared files: [RULES.md](RULES.md) (terms, stages, iron rules, background agents —
@@ -31,6 +32,7 @@ learn add-topic <topic>   → learn-setup add-topic
 learn theory              → learn-artifact: issue (or prepare) the current subtopic's artifact
 learn check | practice | timed | ticket   → learn-practice in that mode
 learn close               → learn-close for the current subtopic
+learn video lecture|practice [pack]  → learn-video (narrated slide video, built on a Mac)
 learn sources [gap|audit] → learn-sources (background)
 learn status              one screen: current subtopic, stage, counters, due warm-ups, jobs
 ```
