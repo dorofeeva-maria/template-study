@@ -13,13 +13,20 @@ the source of truth; its layout is in [../learn/formats/hub.md](../learn/formats
 
 ### `check` — the transition from theory to practice
 
-Set stage `check` when the learner says theory is done (it may span sessions). Questions on the
+Set stage `check` when the learner says self-check is done (it may span sessions). Questions on the
 **theory itself**, cold (the learner answers without the artifact), covering every §2 item: state
 a definition or rule in their own words, explain why it holds, name its conditions and limits,
 tell apart what is easily confused, say which rule a given statement rests on. **No exercises** —
 nothing to compute, solve, write or build: applying the theory is practice and starts at L1. An
 example may appear only as the object of a question about the theory ("is this true, and by
-which rule?"), never as something to work out. It **passes** when every §2 item is answered correctly cold within one batch; `check` does
+which rule?"), never as something to work out. Two more kinds in every check:
+- **One coherent explanation** of the whole subtopic, as to someone hearing of it for the first
+  time, without the artifact (text or voice). Where it breaks off or hides behind a term, the
+  learner marks the spot themselves; review it per item like any answer.
+- **Link questions** (2–3): what this is a special case of, why it is so and not otherwise, how
+  it differs from an item of an earlier subtopic (only items already taught). The learner
+  builds the link; never suggest it.
+It **passes** when every §2 item is answered correctly cold within one batch; `check` does
 not touch the counter. Review per RULES.md. If it doesn't pass —
 **a different approach**, not the same questions: the learner rereads those §2 items (rereading
 is theirs), then new questions that analyse exactly the weak spot from another angle. Repeat until
@@ -28,8 +35,8 @@ it passes. Then stage `practice`, level L1.
 ### `practice` — untimed, by level
 
 - **Never write the bank up front.** Each session, generate a **fresh pack at the current level**
-  (~one hour) from the plan's ladder and the task types of that level, weighted by the counter
-  (below). Weave in strand items silently — only items whose idea is in the §2 of the current or a
+  (~20–30 minutes, one subtopic) from the plan's ladder and the task types of that level, weighted by the counter
+  (below). Weave in strand items silently — only items whose idea is in the §2 of this subtopic, an earlier one or a
   finished subtopic. Before handing out, verify every task against §2 (RULES.md).
 - Early levels may be training formats (mark "not the target format"); upper levels reach the
   target types. Several task types where they genuinely apply; never force one.
@@ -51,11 +58,11 @@ repo, a real letter answering a real-looking request, the exam task in its real 
   names, algorithm or steps.
 - **Real size:** a whole piece of functionality, not a mini-snippet. Context may go beyond what
   was covered — the learner works it out from primary sources.
-- **Only the current subtopic's §2 items are assessed** (plus open items of `moved on`
+- **Only the §2 items of the ticket's subtopic are assessed** (plus open items of `moved on`
   subtopics it really exercises); the rest is real work — not tested, not penalized.
 - Review like a code review limited to verifiable facts: does it build, do tests pass, which
   criteria are not met (by number). No hints on how to fix, no design advice toward untaught
-  topics. Check that the ticket really exercised the current items.
+  topics. Check that the ticket really exercised its items.
 - Training levels stay narrow exercises within the artifact — the contrast is intended.
 - Project tasks (if the subject has one) come after the last level, connecting the subtopic to
   its neighbours; one version.
@@ -64,12 +71,9 @@ repo, a real letter answering a real-looking request, the exam task in its real 
 
 The learner sends answers **as one batch**. Wording per RULES.md (`N ✓`, `N — §2.K`,
 `N — not scored`). Route each problem by where it belongs:
-1. **Current subtopic** → the counter (below).
-2. **A finished subtopic** (in practice or at a warm-up) → an **extra pack on that item only**, in
-   its hub's `Extra` column: score starts at **5** → the learner rereads §2.N + 2–3 check
-   questions (not counted) → packs on that item until the score reaches **0**, by the same counter
-   rules. While it runs, it takes the first part of each session; the rest goes to current work.
-   Its `review-queue.md` row goes back to step 0.
+1. **The subtopic of the pack** → the counter (below).
+2. **A finished subtopic** (in a ticket) → a line in that hub's log, and the item goes to the
+   strand (cards) if the subject has one.
 3. **A future subtopic** → `not scored`. Add to that hub's `## Notes for the artifact`: cover this
    in more depth, use this mistake as an example (date + origin).
 4. **A `before entry` subtopic or outside the plan** → `not scored`; propose reopening it /
@@ -89,7 +93,7 @@ results of the item's last (up to) 5 tasks in that column, oldest first (e.g. `�
   all from this pack if it had 5+ on the item, otherwise reaching back into earlier packs; fewer
   than 5 so far → all there are. **≥80% right → −1**, **<80% right → +1**. One step per pack,
   whatever the number of tasks. So a mistake early on counts in full, and a rare mistake after
-  a run of right answers does not hold the item back (it is still written down and goes to warm-ups).
+  a run of right answers does not hold the item back (it is still written down).
 - **≤0 → closed** in that column: no more tasks on it there.
 - **≥5 → critical:** reread §2.N + 2–3 check questions (not counted); extra pack on that item
   until **<5**.
@@ -100,10 +104,9 @@ results of the item's last (up to) 5 tasks in that column, oldest first (e.g. `�
 
 ## Moving on with items still open
 
-**Time limit per subtopic** (optional): if the module's `AGENTS.md` sets one (e.g. ~4 h), the
-subtopic moves on once that time is spent, whatever its level. No limit set → none applies.
-
-If the learner starts the next subtopic while some items are still open (e.g. the target level is
+**Limit per subtopic** (RULES.md › The pipeline; Config, default 4 sessions): when a subtopic
+reaches it with items still open, or the learner chooses to leave it (e.g. the target level is
 left for real tickets): stage `moved on (open: §2.x…)` in the hub and the plan, with the reason;
-the next subtopic becomes current. Later tasks may target those items and count them (RULES.md ›
+its open items go to the strand (cards) if the subject has one; the next `not started` subtopic
+enters the pipeline. Later tasks may target those items and count them (RULES.md ›
 exceptions). When the last of them closes → `learn-close`.

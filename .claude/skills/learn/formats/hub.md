@@ -15,6 +15,7 @@ tags: [learn]
 <one-line TL;DR>
 
 - **Stage / level:** …
+- **Sessions:** N of the plan's limit (counted from the session after the artifact is read)
 - **Rests on:** <resource and the exact part> · **Primary source to read:** <one>
 - **Artifact:** [<title>](artifacts/<subject-slug>-<M.K>-<subtopic-slug>.html) — prepared YYYY-MM-DD · fact-checked YYYY-MM-DD · issued YYYY-MM-DD
 - **Reference sheet:** (after close) [..](reference/<subject-slug>-<M.K>-<subtopic-slug>.html)

@@ -34,8 +34,9 @@ which part of which resource it rests on (or "no source — gap"), link to its h
 
 ## Status
 | M.K | Stage | Level | Notes |
-Stage: the list in RULES.md › Stages (may be written in the repo's language). One row is marked
-**current**. Level = current counter column. Notes: artifact prepared/issued, decisions.
+Stage: the list in RULES.md › Stages (may be written in the repo's language). The rows in work
+(at most `In work`) are marked **in work**. Level = current counter column. Notes: artifact
+prepared/issued, sessions against the limit, decisions.
 
 ## Config
 - **Difficulty ladder:** L1…Ln with the criteria of each (axes in `learn-setup` › Parameters).
@@ -46,8 +47,8 @@ Stage: the list in RULES.md › Stages (may be written in the repo's language). 
 - **Timer:** yes/no; starting measure and target.
 - **Artifact palette:** channels that fit the subject (prose · tables · diagrams/timelines ·
   images · embedded audio · embedded video · interactive/code · quizzes).
-- **Warm-up:** questions per study day (default 3–5); intervals (default 1-3-7-14-30-60 days).
-  The only place the intervals are set.
+- **In work:** how many subtopics at once (default 3).
+- **Limit per subtopic:** sessions (default 4); RULES.md › The pipeline.
 
 ## Backlog
 Topics to add later: mistakes outside the plan, "for later". Each with where it came from.

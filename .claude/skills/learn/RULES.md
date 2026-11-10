@@ -18,8 +18,9 @@ the skills and formats.
   On request a subtopic is **replaced by several smaller ones**, never nested.
 - **Item** — the smallest trainable unit: one paragraph of the artifact's §2 = one row of the
   counter (§2.N).
-- **Pack** — as many tasks as the learner does in ~40–60 minutes. A **regular** pack covers the
-  whole subtopic (items weighted by their score); an **extra** pack drills one item.
+- **Pack** — as many tasks as the learner does in ~20–30 minutes, all on **one** subtopic. A
+  **regular** pack covers the whole subtopic (items weighted by their score); an **extra** pack
+  drills one item.
 - **Task type** — the form of work (audio recording, problem solving, free text, multiple choice,
   coding, hands-on, report…). A subject has all **applicable** types and a narrower list of
   **target** types.
@@ -31,8 +32,10 @@ the skills and formats.
 - **Theory artifact** — the subtopic's study material: a visual HTML page in `artifacts/`.
 - **Reference sheet** — the compressed, printable essence of a **closed** subtopic in
   `reference/`; the page the learner comes back to.
-- **Warm-up** — a few cold questions at the start of a study day on items of closed subtopics
-  that are due in `review-queue.md`.
+- **In work** — the subtopics being studied at the same time (at most the plan's `In work`
+  count, default 3), each at its own stage. See › The pipeline.
+- **Pretest** — cold questions on a subtopic's artifact before the learner reads it; not scored.
+  Shows where the artifact must explain more.
 - **Study day** — one calendar day of study, however many conversations it has.
 
 ## Stages of a subtopic
@@ -42,42 +45,64 @@ language; the meaning is this list):
 
 | Stage | Means | Set by |
 |---|---|---|
-| `not started` | no artifact issued yet (it may be prepared) | setup |
-| `theory` | artifact issued; the learner self-studies | learn-artifact issue |
+| `not started` | not in work yet (its artifact may be prepared) | setup |
+| `pretest` | in work: pretest given; the artifact is deepened by its result | learn-artifact pretest |
+| `theory` | artifact issued; the learner reads it | learn-artifact issue |
+| `self-check` | artifact read; the learner answers its §3 (questions, quiz, exercises) | learn-artifact |
 | `check` | the theory check is running (may span sessions) | learn-practice |
 | `practice` / `timed` / `project` | counter columns in progress | learn-practice |
-| `moved on (open: §2.x…)` | the learner went on with items still open | learn-practice |
+| `moved on (open: §2.x…)` | the limit was reached with items still open; out of work | learn-practice |
 | `paused` | started, deliberately set aside; the plan says why | the learner |
 | `done` | every item closed in the last column | learn-close |
 | `before entry` | before the entry point set by the setup diagnostic | setup |
 
-Exactly one subtopic is **current** (the plan marks it); `moved on` and `paused` ones are not.
+The subtopics **in work** are those from `pretest` to the last counter column; `moved on`,
+`paused`, `done` and `not started` ones are not.
+
+## The pipeline
+
+Subtopics are studied in parallel, so practice on one never blocks the next.
+- **At most `In work` subtopics** (Config, default 3), in the plan's order. A place frees when one
+  becomes `done` or `moved on`; the next `not started` subtopic in the plan's order enters at
+  `pretest`.
+- **A stage opens after the subtopic before it passed it.** Of two subtopics in work, the later
+  one may enter a stage (or a counter column) only once the earlier one has finished that stage
+  or column. Both may move in the same session (read artifact 1, then artifact 2).
+- **The session** walks the next available step of every subtopic in work, **newest subtopic
+  first** (pretest, reading), then the older ones; as much as fits, the rest next time. Each pack
+  stays on one subtopic; packs of different subtopics alternate across the session and the days.
+- **Limit per subtopic** (Config, default 4 sessions): every session in which the subtopic was
+  worked on in any way counts, but none counts until its artifact has been read (stage past
+  `theory`). Reached with items still open → `moved on`; its open items go to the strand (cards)
+  if the subject has one. It is a safety valve, not the normal end.
+- **No warm-ups.** Closed subtopics and open items of `moved on` ones are repeated only through
+  the strand (cards).
 
 ## Iron rules
 
 - **Maximum independence.** The assistant gives material, tasks and structure. The learner reads,
   looks for answers in the material, works things out and **finds their own mistake**. Only steer
   the process.
-- **No hints anywhere** — not in tasks, strand items, artifacts, warm-ups or reviews (no "look
+- **No hints anywhere** — not in tasks, strand items, artifacts or reviews (no "look
   there", no nudges toward the answer). Instead of hints — **good material** to lean on.
 - **Never trust your own memory of the subject.** Material comes from the sources in
   `resources.md`; every non-trivial claim in an artifact carries a link to its source. A claim no
   vetted source supports is not made. Gaps are written into `resources.md`, not filled by guessing.
-- **Tasks test only what is in the current artifact's §2.** Before handing out any task, write
+- **Tasks test only what is in the §2 of the subtopic the task is on.** Before handing out any task, write
   down for yourself which §2 items each task needs — every part, including the last step; a task
   that needs anything else is changed or dropped. Where the task can be run (code), run your own
   solution first if you can. Exceptions, and only these: the setup **diagnostic** (no artifact
-  exists yet); **warm-ups** (items of closed subtopics); open items of **`moved on`** subtopics,
+  exists yet); the **pretest** (before reading); open items of **`moved on`** subtopics,
   which a later task may target and count; tickets, whose untaught context is real work, not
   assessed.
 - **Task wording states the goal and the constraints, never the technique.** No phrases pointing
   to the way to solve it ("so that a typo becomes an error", "without nesting it in an `if`", "if
   you can't, explain why", a list of the exact bugs to fix).
 - **Reviews never give the answer.** Allowed per task, and nothing else: `N ✓`; `N — §2.K` (a
-  problem on that item); `N — not scored` (the answer leaned on something outside the current
-  §2; no further words); in the diagnostic, which has no §2, just `N ✗`. Facts the learner can
+  problem on that item); `N — not scored` (the answer leaned on something outside that
+  §2; no further words); in the diagnostic and the pretest, just `N ✓` / `N ✗`. Facts the learner can
   verify may be added: "the build fails", "test X fails", "acceptance criterion 2 is not met". Not
-  the right answer, not why, not which direction to look. Holds for diagnostics, warm-ups,
+  the right answer, not why, not which direction to look. Holds for diagnostics, pretests,
   `check`, practice and tickets.
 - **Don't explain an untaught concept inline.** If a concept outside the artifact surfaces, move it
   to a future or new subtopic (note in that hub, or `add-topic`); don't explain it in chat.
@@ -91,7 +116,7 @@ Exactly one subtopic is **current** (the plan marks it); `moved on` and `paused`
   `check`.
 - **The learner sets the pace.** A stage takes as many sessions as it takes.
 - **The measure is retention and automaticity**, not smoothness in the session. Fluency in the
-  moment is not learning; storage over days is.
+  moment is not learning; storage over days is. A session that felt hard is not a bad session.
 - **Don't inflate mastery.** "Done with an example in front of me" is familiarity, not
   automaticity. Automaticity = reproducing it cold, without hints or example. Counters move only
   by that criterion; one good attempt with an example never closes an item.
@@ -109,7 +134,7 @@ Exactly one subtopic is **current** (the plan marks it); `moved on` and `paused`
 ## State and housekeeping
 
 - All state lives in this repo, so study works on any device. Before any step: pull (the repo may
-  be ahead on another device), then reread the plan and the current hub.
+  be ahead on another device), then reread the plan and the hubs in work.
 - **The hub is the source of truth for progress.** If the plan's status table disagrees, say so in
   one line and fix the plan.
 - **Write as you go**: results, counters, decisions go into the files in the same turn.

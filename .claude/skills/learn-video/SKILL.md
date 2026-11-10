@@ -21,7 +21,7 @@ facts, tasks or answers that are not there. Built only on the learner's request.
 
 ## Modes
 
-### `lecture` — the theory of the current subtopic
+### `lecture` — the theory of a subtopic in work
 
 Source: its artifact, in §2 order. Opening slide (subtopic, what comes, how pauses work) → one or
 two slides per §2 item → recap slide (`summary`) → 4–8 spoken questions on the theory, each with a

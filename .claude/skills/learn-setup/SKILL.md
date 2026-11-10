@@ -53,10 +53,10 @@ precede an artifact (RULES.md › exceptions).
   belongs to a later subtopic also goes into that hub's `## Notes for the artifact` (once the
   hubs exist, step 7).
 - Propose the **entry point**: the first subtopic the learner does not already do cold at the
-  target level. Earlier subtopics become `before entry` — no artifact, no counter, no warm-ups.
+  target level. Earlier subtopics become `before entry` — no artifact, no counter.
   The learner decides. A later mistake that lands in a `before entry` subtopic is routed like a
-  mistake outside the plan: propose to reopen it as `not started` (insert it before the current
-  one or after it, the learner decides).
+  mistake outside the plan: propose to reopen it as `not started` (insert it before the subtopics in work
+  or after them, the learner decides).
 
 ## 5. The map
 
@@ -83,23 +83,25 @@ Starting point decides where the learner enters.
 3. Strand — yes/no, what, **how many per study day** (offer 5 as the default; the learner picks
    the number, and the number is always written into Config — a strand without a count is not
    set up), order, how repeated (for professional or technical subjects: a vocabulary strand of
-   the field's terms in English is recommended). Items come from the current subtopic's artifact
-   every study day — never saved up until the subtopic closes.
+   the field's terms in English is recommended). Items come from the artifacts of the subtopics
+   in work every study day — never saved up until the subtopic closes.
 4. Project — yes/no and what (comes after the last level of each subtopic).
 5. Timer — yes/no, start and target.
 6. Artifact palette — channels that fit the subject.
-7. Warm-up — questions per study day and intervals (defaults in the plan format).
+7. Pipeline — subtopics in work at once (default 3) and the limit per subtopic (default 4
+   sessions); RULES.md › The pipeline.
 
 ## 7. Write it down
 
-Plan (all sections; the entry subtopic marked current), one hub per subtopic (format
+Plan (all sections; the entry subtopic and the next ones up to `In work` marked `in work` at
+`pretest`), one hub per subtopic (format
 [../learn/formats/hub.md](../learn/formats/hub.md), items left empty until the artifact exists),
-`<subject-slug>-strand.md` if any, an empty `review-queue.md`. Replace the placeholders in `AGENTS.md`
+`<subject-slug>-strand.md` if any. Replace the placeholders in `AGENTS.md`
 and `README.md` with the subject's real purpose, anchor source and language. End per RULES.md ›
 State.
 
-Right after these files are written, launch `learn-artifact prepare` for the entry subtopic in the
-background, so it is ready by the end of setup. Then hand back to `learn`.
+Right after these files are written, launch `learn-artifact prepare` for the subtopics in work in
+the background, so they are ready by the end of setup. Then hand back to `learn`.
 
 ## `add-topic <topic>`
 
