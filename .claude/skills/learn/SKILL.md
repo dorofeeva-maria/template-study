@@ -90,8 +90,9 @@ Done once, when the repo predates this version; tell the learner in one line and
    subtopic` (default 4 sessions); Strand count per study day (default 5) if the subject has a
    strand and its Config gives no number.
 3. **The pipeline (no warm-ups).** A repo with a `review-queue.md` or a Warm-up line in Config:
-   remove the Warm-up line and any rule about warm-ups in Config and `AGENTS.md`; a per-subtopic
-   limit of 1–2 sessions there becomes the `Limit per subtopic` line; put `Archived YYYY-MM-DD —
+   remove the Warm-up line and any rule about warm-ups in Config and `AGENTS.md` (the file list
+   included); a per-subtopic limit there is replaced by the `Limit per subtopic` line — default 4
+   sessions, a limit of 3 or 4 sessions already set stays; put `Archived YYYY-MM-DD —
    warm-ups were removed; nothing reads this file.` under the queue's heading and leave the file.
    The current subtopic stays at its stage and becomes the first in work (a subtopic in `theory`
    whose artifact the learner already read → `self-check`); the next `not started` ones in the
