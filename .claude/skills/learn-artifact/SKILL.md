@@ -47,7 +47,8 @@ Read [../learn/RULES.md](../learn/RULES.md) first (iron rules; background agents
 For every non-trivial claim in §1–§2 and every §3 quiz key: open the cited source and confirm it
 says that. Check each URL loads; each image is what its caption says; formulas and examples are
 correct (run code and compute numbers where possible); nothing in §3 needs knowledge outside §2;
-no hints toward §3 answers leak into §2 wording. Report a list:
+no hints toward §3 answers leak into §2 wording; every formula derived from geometry has its
+detailed labelled diagram. Report a list:
 `location · claim · problem · what the source actually says`. Don't edit the file.
 
 ## issue
@@ -83,6 +84,10 @@ colour accents — not garish); **one piece of information through different cha
 subject's palette; **formulas in proper textbook form** (MathML or rendered — the no-LaTeX rule is
 for chat only). Diagrams are inline SVG drawn with the `learn.css` diagram classes (`.ax`, `.ln`,
 `.c1`…, text `.m`, `.a1`…) and never hard-coded colours, so they stay legible in the dark theme.
+**A formula derived from geometry** (a cross-section, coordinates of a point, a triangle) gets its
+own detailed diagram next to it: every point, radius, angle, axis and segment the formula is built
+from is drawn and labelled with the formula's symbols, and the caption walks the derivation step by
+step. Words alone are not enough: without the picture the learner has to draw it on paper first.
 Set `<html lang="…">` to the page's language: the quiz labels follow it. A subject-specific
 interactive widget stays inline in its artifact (or in the module's own files), not in `assets/`.
 
