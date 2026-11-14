@@ -21,7 +21,7 @@ work of each stage lives in its own skill:
 
 The stage skills are internal: always start here, then read the stage skill's `SKILL.md` and
 follow it. Shared files: [RULES.md](RULES.md) (terms, stages, the pipeline, iron rules, background
-agents — read first) and `formats/` (plan, hub, resources, strand). Skill paths below are
+agents, waits — read first) and `formats/` (plan, hub, resources, strand). Skill paths below are
 relative to `.claude/skills/`.
 
 ## Usage
@@ -40,6 +40,8 @@ learn status              one screen: subtopics in work, stages, counters, limit
 ```
 
 ## Every session
+
+Throughout: every longer wait opens with the pause menu (RULES.md › Waits).
 
 1. **Sync and read** (RULES.md › State): the plan, the hubs in work, the tail of `log.md`.
    Leftover `*.draft.*` files from an earlier session → finish their review (fact-check if

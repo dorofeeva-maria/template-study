@@ -159,3 +159,28 @@ web domain, a download) — then they report what they could not do.
   reviews the result, renames a draft to its final name only after the fact-check, and commits.
   An unreviewed `.draft.*` file is never issued.
 - Without subagents, do the same work inline, in the same order.
+
+## Waits — the pause menu
+
+Learners rarely drift while reading; they drift while waiting for the assistant (a feed, a
+video, another chat). So the session keeps them on the subject during every wait.
+
+- **One session, one subject.** In parallel only what serves this subject without the learner's
+  attention — background agents building or checking while they read.
+- **Don't keep them waiting on one long turn.** Long work (checking a pack, a review, building
+  material) goes to background agents; give the learner something to read or solve at once. If a
+  long turn can't be avoided — material first, then the work.
+- **The pause menu — the assistant offers it**, at the very start of every longer wait, in one
+  line ("while I check: recall …" / "open this subject's cards"); the learner need not remember
+  it. In this order:
+  1. recall or predict the answer to what is being checked;
+  2. in a language subject — say their own answer once more, aloud;
+  3. this subject's cards (the strand), if it has them;
+  4. the session's material.
+- **Not in a pause:** feeds, videos, other topics, another assistant session — even one on study;
+  speech with meaning in the background while reading (wordless music is fine).
+- **An off-topic thought is parked:** the assistant notes it in one line in the learner's to-do
+  list (or at the end of the session's `log.md` line if there is none); it is taken up later, not
+  now.
+- Where the assistant allows it, study sessions run at a lower reasoning effort, so waits are
+  shorter.
